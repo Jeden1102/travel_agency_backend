@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "alimenatations",
+  "info": {
+    "singularName": "alimenatation",
+    "pluralName": "alimenatations",
+    "displayName": "Alimenatation"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "icon": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}
