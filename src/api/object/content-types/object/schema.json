@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "offers",
+  "collectionName": "objects",
   "info": {
-    "singularName": "offer",
-    "pluralName": "offers",
-    "displayName": "Offer",
+    "singularName": "object",
+    "pluralName": "objects",
+    "displayName": "Object",
     "description": ""
   },
   "options": {
@@ -24,7 +24,27 @@
         }
       }
     },
-    "icon": {
+    "alimenatation": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::alimenatation.alimenatation"
+    },
+    "destination": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::destination.destination"
+    },
+    "facilities": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::facility.facility"
+    },
+    "offer": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::offer.offer"
+    },
+    "main_image": {
       "type": "media",
       "multiple": false,
       "required": false,
@@ -40,9 +60,9 @@
         }
       }
     },
-    "image": {
+    "images": {
       "type": "media",
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "allowedTypes": [
         "images",
@@ -60,7 +80,7 @@
       "type": "customField",
       "options": {
         "output": "HTML",
-        "preset": "standard"
+        "preset": "rich"
       },
       "customField": "plugin::ckeditor.CKEditor"
     }

@@ -794,13 +794,29 @@ export interface ApiAlimenatationAlimenatation extends Schema.CollectionType {
     singularName: 'alimenatation';
     pluralName: 'alimenatations';
     displayName: 'Alimenatation';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    name: Attribute.String;
-    icon: Attribute.Media;
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    icon: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -816,6 +832,12 @@ export interface ApiAlimenatationAlimenatation extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::alimenatation.alimenatation',
+      'oneToMany',
+      'api::alimenatation.alimenatation'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -825,12 +847,31 @@ export interface ApiDestinationDestination extends Schema.CollectionType {
     singularName: 'destination';
     pluralName: 'destinations';
     displayName: 'Destination';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    name: Attribute.String;
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    continent: Attribute.Enumeration<
+      ['Europe', 'Asia', 'North America', 'South America', 'Africa']
+    > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -846,6 +887,12 @@ export interface ApiDestinationDestination extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::destination.destination',
+      'oneToMany',
+      'api::destination.destination'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -855,13 +902,29 @@ export interface ApiFacilityFacility extends Schema.CollectionType {
     singularName: 'facility';
     pluralName: 'facilities';
     displayName: 'Facility';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    name: Attribute.String;
-    icon: Attribute.Media;
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    icon: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -877,6 +940,99 @@ export interface ApiFacilityFacility extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::facility.facility',
+      'oneToMany',
+      'api::facility.facility'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiObjectObject extends Schema.CollectionType {
+  collectionName: 'objects';
+  info: {
+    singularName: 'object';
+    pluralName: 'objects';
+    displayName: 'Object';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    alimenatation: Attribute.Relation<
+      'api::object.object',
+      'oneToOne',
+      'api::alimenatation.alimenatation'
+    >;
+    destination: Attribute.Relation<
+      'api::object.object',
+      'oneToOne',
+      'api::destination.destination'
+    >;
+    facilities: Attribute.Relation<
+      'api::object.object',
+      'oneToMany',
+      'api::facility.facility'
+    >;
+    offer: Attribute.Relation<
+      'api::object.object',
+      'oneToOne',
+      'api::offer.offer'
+    >;
+    main_image: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    images: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    description: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'HTML';
+          preset: 'rich';
+        }
+      >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::object.object',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::object.object',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::object.object',
+      'oneToMany',
+      'api::object.object'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -890,8 +1046,18 @@ export interface ApiObjectStandardObjectStandard extends Schema.CollectionType {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    name: Attribute.String;
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -907,6 +1073,12 @@ export interface ApiObjectStandardObjectStandard extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::object-standard.object-standard',
+      'oneToMany',
+      'api::object-standard.object-standard'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -916,14 +1088,43 @@ export interface ApiOfferOffer extends Schema.CollectionType {
     singularName: 'offer';
     pluralName: 'offers';
     displayName: 'Offer';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    name: Attribute.String;
-    icon: Attribute.Media;
-    image: Attribute.Media;
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    icon: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    image: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    description: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'HTML';
+          preset: 'standard';
+        }
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -939,6 +1140,12 @@ export interface ApiOfferOffer extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::offer.offer',
+      'oneToMany',
+      'api::offer.offer'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -952,9 +1159,30 @@ export interface ApiVacationTypeVacationType extends Schema.CollectionType {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    name: Attribute.String;
-    icon: Attribute.Media;
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    icon: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    image: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -970,6 +1198,12 @@ export interface ApiVacationTypeVacationType extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::vacation-type.vacation-type',
+      'oneToMany',
+      'api::vacation-type.vacation-type'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -994,6 +1228,7 @@ declare module '@strapi/types' {
       'api::alimenatation.alimenatation': ApiAlimenatationAlimenatation;
       'api::destination.destination': ApiDestinationDestination;
       'api::facility.facility': ApiFacilityFacility;
+      'api::object.object': ApiObjectObject;
       'api::object-standard.object-standard': ApiObjectStandardObjectStandard;
       'api::offer.offer': ApiOfferOffer;
       'api::vacation-type.vacation-type': ApiVacationTypeVacationType;
